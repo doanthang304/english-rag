@@ -1,36 +1,26 @@
-English-Agentic-RAG: Trợ lý Sư phạm Thông minh
-Dự án này là một hệ thống Agentic RAG tiên tiến, được thiết kế riêng để hỗ trợ giáo viên tiếng Anh (tập trung vào bộ sách Global Success). Khác với các hệ thống RAG truyền thống, dự án này sử dụng luồng công việc Stateful Multi-Agent để đảm bảo tính chính xác về mặt sư phạm và khả năng tự sửa lỗi (Self-correction).
+*English-Agentic-RAG: Trợ lý Sư phạm Thông minh
+- Dự án này là một hệ thống Agentic RAG tiên tiến, được thiết kế riêng để hỗ trợ giáo viên tiếng Anh (tập trung vào bộ sách Global Success). Khác với các hệ thống RAG truyền thống, dự án này sử dụng luồng công việc Stateful Multi-Agent để đảm bảo tính chính xác về mặt sư phạm và khả năng tự sửa lỗi (Self-correction).
 
-    Tính năng nổi bật (Key Features)
-Agentic Reasoning Loop: Sử dụng kiến trúc Planner-Critic. Agent không chỉ trả lời ngay lập tức mà thực hiện quy trình: Lập kế hoạch -> Truy xuất -> Tạo nội dung -> Kiểm định lại để đảm bảo đúng tiêu chuẩn kiến thức lớp 7.
+***Tính năng nổi bật (Key Features)***
+- Agentic Reasoning Loop: Sử dụng kiến trúc Planner-Critic. Agent không chỉ trả lời ngay lập tức mà thực hiện quy trình: Lập kế hoạch -> Truy xuất -> Tạo nội dung -> Kiểm định lại để đảm bảo đúng tiêu chuẩn kiến thức lớp 7. 
+- Pedagogical Grounding: Sử dụng kỹ thuật Metadata Filtering để đảm bảo AI chỉ sử dụng từ vựng và ngữ pháp trong phạm vi các Unit/Grade đã được định nghĩa trong knowledge_base.
+- Context-Aware Retrieval: Tích hợp BGE-M3 Multilingual Embeddings để đạt độ chính xác cao khi tìm kiếm ngữ nghĩa (Semantic Search) cho cả tiếng Anh và tiếng Việt.
+- Stateful Conversations: Quản lý hội thoại thông qua LangGraph Checkpoints, cho phép AI ghi nhớ ngữ cảnh trong các phiên làm việc phức tạp (Multi-turn conversation).
+- Real-time Web Augmentation: Kết hợp công cụ tìm kiếm DuckDuckGo Search để cập nhật các xu hướng giáo dục và mẫu giáo án mới nhất từ internet.
 
-Pedagogical Grounding: Sử dụng kỹ thuật Metadata Filtering để đảm bảo AI chỉ sử dụng từ vựng và ngữ pháp trong phạm vi các Unit/Grade đã được định nghĩa trong knowledge_base.
+***Kiến trúc hệ thống (System Architecture)***
+- Hệ thống hoạt động dựa trên mô hình Directed Acyclic Graph (DAG):
+- Planner Node: Phân tích yêu cầu người dùng (Intent) thành một cấu trúc dữ liệu cụ thể (Grade, Unit, Difficulty, Task Type).
+- Retriever Node: Thực hiện tìm kiếm hỗn hợp (Hybrid Search) trên ChromaDB kết hợp với bộ lọc Metadata.
+- Generator Node: Soạn thảo nội dung (Giáo án, Đề thi, hoặc Worksheet).
+- Critic/Validator Node: Đánh giá bản thảo dựa trên các ràng buộc về chương trình học. Nếu phát hiện lỗi (ví dụ: từ vựng quá khó), hệ thống sẽ kích hoạt vòng lặp (Loop) quay lại Generator để chỉnh sửa.
 
-Context-Aware Retrieval: Tích hợp BGE-M3 Multilingual Embeddings để đạt độ chính xác cao khi tìm kiếm ngữ nghĩa (Semantic Search) cho cả tiếng Anh và tiếng Việt.
+***Tech Stack***
 
-Stateful Conversations: Quản lý hội thoại thông qua LangGraph Checkpoints, cho phép AI ghi nhớ ngữ cảnh trong các phiên làm việc phức tạp (Multi-turn conversation).
-
-Real-time Web Augmentation: Kết hợp công cụ tìm kiếm DuckDuckGo Search để cập nhật các xu hướng giáo dục và mẫu giáo án mới nhất từ internet.
-
- Kiến trúc hệ thống (System Architecture)
-Hệ thống hoạt động dựa trên mô hình Directed Acyclic Graph (DAG):
-
-Planner Node: Phân tích yêu cầu người dùng (Intent) thành một cấu trúc dữ liệu cụ thể (Grade, Unit, Difficulty, Task Type).
-
-Retriever Node: Thực hiện tìm kiếm hỗn hợp (Hybrid Search) trên ChromaDB kết hợp với bộ lọc Metadata.
-
-Generator Node: Soạn thảo nội dung (Giáo án, Đề thi, hoặc Worksheet).
-
-Critic/Validator Node: Đánh giá bản thảo dựa trên các ràng buộc về chương trình học. Nếu phát hiện lỗi (ví dụ: từ vựng quá khó), hệ thống sẽ kích hoạt vòng lặp (Loop) quay lại Generator để chỉnh sửa.
-
-Tech Stack
-Framework chính: LangGraph & LangChain
-
-Inference Engine: Groq Cloud (Model: llama-3.1-8b-instant)
-
-Vector Database: ChromaDB
-
-Embedding Model: BAAI/bge-m3 (Chạy Local)
+- Framework chính: LangGraph & LangChain
+- Inference Engine: Groq Cloud (Model: llama-3.1-8b-instant)
+- Vector Database: ChromaDB
+- Embedding Model: BAAI/bge-m3 (Chạy Local)
 
 Giao diện (UI): Streamlit
 
@@ -65,8 +55,9 @@ python -m src.english_agent.ingestion
 python -m streamlit run app.py
  ----------------------------------------------------------------------------
 
-Cấu trúc dự án (Project Structure)
+***Cấu trúc dự án (Project Structure)
 
+```bash 
 EnglishAgent/
 ├── src/
 │   └── english_agent/
