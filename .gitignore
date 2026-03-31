@@ -1,0 +1,6 @@
+venv/
+.env
+.chroma/
+__pycache__/
+*.pyc
+data/question_bank/
