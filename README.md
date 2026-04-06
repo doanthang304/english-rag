@@ -34,7 +34,7 @@ Groq API Key (Lấy tại console.groq.com).
 
 2. Cài đặt (Installation)
 # Clone repository này
-git clone https://github.com/your-username/English-Agentic-RAG.git
+git clone https://github.com/doanthang304/english-rag
 cd English-Agentic-RAG
 
 # Tạo và kích hoạt môi trường ảo (Virtual Environment)
